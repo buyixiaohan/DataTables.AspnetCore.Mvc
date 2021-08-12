@@ -1,11 +1,9 @@
 ﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.AspNetCore.Html;
-using System.Text.Encodings.Web;
-using System.Linq;
 using System.ComponentModel;
+using System.IO;
+using System.Linq;
+using System.Text.Encodings.Web;
+using Microsoft.AspNetCore.Html;
 using Newtonsoft.Json.Linq;
 
 namespace DataTables.AspNetCore.Mvc
@@ -411,8 +409,7 @@ namespace DataTables.AspNetCore.Mvc
             //        document.write('<table id="example" class="display" cellspacing="0" width="100%"></table>')
             //      }
             //</ script >
-            writer.Write($"<script type=\"text/javascript\">document.addEventListener(\"DOMContentLoaded\", function(event) { if ($(\"#{this.Grid.Name}\").length==0){{document.write('<table id=\"{this.Grid.Name}\" class=\"display{(!string.IsNullOrWhiteSpace(this.Grid.ClassName) ? $" {this.Grid.ClassName}" : "")}\" cellspacing=\"0\" width=\"100%\"></table>')}}});
-</script>");
+            writer.Write($"<script type=\"text/javascript\">document.addEventListener(\"DOMContentLoaded\", function(event) {{ if ($(\"#{this.Grid.Name}\").length==0){{document.write('<table id=\"{this.Grid.Name}\" class=\"display{(!string.IsNullOrWhiteSpace(this.Grid.ClassName) ? $" {this.Grid.ClassName}" : "")}\" cellspacing=\"0\" width=\"100%\"></table>')}}}});</script>");
 
             // Datables.Net
             writer.Write("<script>$(function(){");

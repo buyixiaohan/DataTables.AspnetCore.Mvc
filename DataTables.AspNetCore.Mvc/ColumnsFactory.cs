@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Html;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Text.Encodings.Web;
+using Newtonsoft.Json.Linq;
 
 namespace DataTables.AspNetCore.Mvc
 {
@@ -63,10 +61,16 @@ namespace DataTables.AspNetCore.Mvc
         public GridColumnsBuilder Add<T>(Expression<Func<TModel, T>> expression)
         {
             var p = PropertyBuilder.GetPropertyInfo(expression);
-            string pName = PropertyBuilder.GetPropertyName(p);
+            string pName = PropertyBuilder.GetPropertyName(p).ToCamelCase();
+            var props = p.GetCustomAttributes(typeof(DisplayAttribute), false).FirstOrDefault();
 
             GridColumnsBuilder column = new GridColumnsBuilder();
+            if (props != null)
+            {
+                column.Title(((DisplayAttribute)props).Name);
+            }
             this.Columns.Add(column.Data(pName));
+
             return column;
         }
 
@@ -83,6 +87,18 @@ namespace DataTables.AspNetCore.Mvc
                 jArray.Add(Columns[i].ToJToken());
             }
             return jArray;
+        }
+    }
+
+    public static class StringExtensions
+    {
+        public static string ToCamelCase(this string str)
+        {
+            if (!string.IsNullOrEmpty(str) && str.Length > 1)
+            {
+                return char.ToLowerInvariant(str[0]) + str.Substring(1);
+            }
+            return str;
         }
     }
 }

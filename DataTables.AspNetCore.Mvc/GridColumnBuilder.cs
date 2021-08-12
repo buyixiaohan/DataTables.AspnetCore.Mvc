@@ -1,11 +1,4 @@
-﻿using Microsoft.AspNetCore.Html;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using System.Text.Encodings.Web;
+﻿using System;
 using System.ComponentModel;
 using Newtonsoft.Json.Linq;
 
@@ -118,7 +111,7 @@ namespace DataTables.AspNetCore.Mvc
         }
 
         /// <summary>
-        /// Enable or disable ordering on this column. 
+        /// Enable or disable ordering on this column.
         /// </summary>
         /// <param name="orderable"></param>
         /// <returns></returns>
@@ -288,7 +281,8 @@ namespace DataTables.AspNetCore.Mvc
                     {
                         jObject.Add("render", new JValue(this.Column.Render.Render));
                     }
-                } else if (this.Column.Render.RenderType == RenderType.Function)
+                }
+                else if (this.Column.Render.RenderType == RenderType.Function)
                 {
                     // Function
                     jObject.Add("render", new JRaw(this.Column.Render.Render));
