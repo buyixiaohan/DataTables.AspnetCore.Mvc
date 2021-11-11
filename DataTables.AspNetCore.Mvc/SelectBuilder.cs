@@ -1,13 +1,5 @@
-﻿using Microsoft.AspNetCore.Html;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using System.Text.Encodings.Web;
+﻿using Newtonsoft.Json.Linq;
 using System.ComponentModel;
-using Newtonsoft.Json.Linq;
 
 namespace DataTables.AspNetCore.Mvc
 {
@@ -16,7 +8,7 @@ namespace DataTables.AspNetCore.Mvc
     /// </summary>
     public class SelectBuilder : IJToken
     {
-        SelectOptions select;
+        private SelectOptions select;
 
         /// <summary>
         /// Initialize a new instance of <see cref="SelectBuilder"/>
@@ -82,7 +74,7 @@ namespace DataTables.AspNetCore.Mvc
         }
 
         /// <summary>
-        /// Set the element selector used for mouse event capture to select items. 
+        /// Set the element selector used for mouse event capture to select items.
         /// </summary>
         /// <param name="selector"></param>
         /// <returns></returns>

@@ -1,13 +1,5 @@
-﻿using Microsoft.AspNetCore.Html;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using System.Text.Encodings.Web;
+﻿using Newtonsoft.Json.Linq;
 using System.ComponentModel;
-using Newtonsoft.Json.Linq;
 
 namespace DataTables.AspNetCore.Mvc
 {
@@ -16,7 +8,7 @@ namespace DataTables.AspNetCore.Mvc
     /// </summary>
     public class LanguageBuilder : IJToken
     {
-        LanguageOptions lg;
+        private LanguageOptions lg;
 
         /// <summary>
         /// Initialize a new instance of <see cref="LanguageBuilder"/>

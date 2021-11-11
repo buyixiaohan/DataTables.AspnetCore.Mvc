@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DataTables.AspNetCore.Mvc
+﻿namespace DataTables.AspNetCore.Mvc
 {
-    class GridColumnOptions
+    internal class GridColumnOptions
     {
         //columns.cellType
         //columns.className
@@ -62,7 +56,7 @@ namespace DataTables.AspNetCore.Mvc
         public string Name { get; set; }
 
         /// <summary>
-        /// Enable or disable ordering on this column. 
+        /// Enable or disable ordering on this column.
         /// </summary>
         public bool Orderable { get; set; } = true;
 
@@ -80,7 +74,7 @@ namespace DataTables.AspNetCore.Mvc
         /// Render (process) the data for use in the table.
         /// </summary>
         public RenderOptions Render { get; set; }
-        
+
         /// <summary>
         /// Enable or disable filtering on the data in this column.
         /// </summary>

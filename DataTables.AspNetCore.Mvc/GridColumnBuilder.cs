@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.ComponentModel;
-using Newtonsoft.Json.Linq;
 
 namespace DataTables.AspNetCore.Mvc
 {

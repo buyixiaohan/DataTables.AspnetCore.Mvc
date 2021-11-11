@@ -1,13 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DataTables.AspNetCore.Mvc.Binder
 {
-    class DataTablesRequestModelBinder : IModelBinder
+    internal class DataTablesRequestModelBinder : IModelBinder
     {
         /// <summary>
         /// Attempts to bind a model.
@@ -26,7 +24,8 @@ namespace DataTables.AspNetCore.Mvc.Binder
         /// Attempts to bind a model.
         /// </summary>
         /// <param name="bindingContext"></param>
-        private void BindModel(ModelBindingContext bindingContext) { 
+        private void BindModel(ModelBindingContext bindingContext)
+        {
             var valueProvider = bindingContext.ValueProvider;
 
             int draw, start, length;
@@ -154,7 +153,8 @@ namespace DataTables.AspNetCore.Mvc.Binder
                 result = (T)Convert.ChangeType(value.FirstValue, typeof(T));
                 return true;
             }
-            catch {
+            catch
+            {
                 return false;
             }
         }

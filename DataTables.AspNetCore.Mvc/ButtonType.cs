@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DataTables.AspNetCore.Mvc
+﻿namespace DataTables.AspNetCore.Mvc
 {
     /// <summary>
     /// Represents built-in button
@@ -13,14 +9,17 @@ namespace DataTables.AspNetCore.Mvc
         /// Export excel
         /// </summary>
         Excel,
+
         /// <summary>
         /// Print
         /// </summary>
         Print,
+
         /// <summary>
         /// Copy
         /// </summary>
         Copy,
+
         /// <summary>
         /// Selected button provide by Select extension
         /// </summary>

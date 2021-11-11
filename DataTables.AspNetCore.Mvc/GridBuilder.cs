@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Html;
+using Newtonsoft.Json.Linq;
+using System;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text.Encodings.Web;
-using Microsoft.AspNetCore.Html;
-using Newtonsoft.Json.Linq;
 
 namespace DataTables.AspNetCore.Mvc
 {
@@ -23,47 +23,58 @@ namespace DataTables.AspNetCore.Mvc
         }
 
         #region Properties
+
         /// <summary>
         /// Gets the undelying <see cref="GridOptions{T}"/>
         /// </summary>
         internal GridOptions<T> Grid { get; }
+
         /// <summary>
         /// Gets or sets the <see cref="OrderBuilder"/>
         /// </summary>
         private OrderBuilder OrderBuilder { get; set; }
+
         /// <summary>
         /// Gets or sets the <see cref="ColumnDefsFactory"/>
         /// </summary>
         private ColumnDefsFactory ColumnDefsFactory { get; set; }
+
         /// <summary>
         /// Gets or sets the <see cref="GridDataSourceBuilder"/>
         /// </summary>
         private GridDataSourceBuilder GridDataSourceBuilder { get; set; }
+
         /// <summary>
         /// Gets or sets the <see cref="ColumnsFactory"/>
         /// </summary>
         private ColumnsFactory<T> ColumnsFactory { get; set; }
+
         /// <summary>
         /// Gets or sets the <see cref="GridButtonsFactory"/>
         /// </summary>
         private GridButtonsFactory<T> GridButtonsFactory { get; set; }
+
         /// <summary>
         /// Gets or sets the <see cref="SelectBuilder"/>
         /// </summary>
         private SelectBuilder SelectBuilder { get; set; }
+
         /// <summary>
         /// Gets or sets the events builder
         /// </summary>
         private EventsBuilder EventsBuilder { get; set; }
+
         /// <summary>
         /// Gets or sets the language builder
         /// </summary>
         private LanguageBuilder LanguageBuilder { get; set; }
+
         /// <summary>
         /// Gets or sets the <see cref="LengthMenuBuilder"/>
         /// </summary>
         private LengthMenuBuilder LengthMenuBuilder { get; set; }
-        #endregion
+
+        #endregion Properties
 
         /// <summary>
         /// Grid name
@@ -446,7 +457,7 @@ namespace DataTables.AspNetCore.Mvc
             if (this.EventsBuilder != null) this.EventsBuilder.WriteTo(writer, encoder);
             if (withClick)
             {
-                writer.Write("var fn=[" + string.Join(",",this.ColumnsFactory.Columns.Select(e => e.Column.Click)) + "];");
+                writer.Write("var fn=[" + string.Join(",", this.ColumnsFactory.Columns.Select(e => e.Column.Click)) + "];");
                 writer.Write("g.on('click','button',function(){var row=dt.row($(this).parents('tr'));var i=dt.column($(this).parents('td')).index();if (fn.length>i){fn[i]({data:$(this).data(),rowid:row.id(),row:row.data()});}});");
                 writer.Write("});</script>");
             }

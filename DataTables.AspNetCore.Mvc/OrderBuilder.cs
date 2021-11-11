@@ -1,14 +1,7 @@
-﻿using Microsoft.AspNetCore.Html;
+﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using System.Text.Encodings.Web;
 using System.ComponentModel;
-using Newtonsoft.Json.Linq;
 
 namespace DataTables.AspNetCore.Mvc
 {
@@ -57,7 +50,7 @@ namespace DataTables.AspNetCore.Mvc
         public JToken ToJToken()
         {
             JArray jArray = new JArray();
-            foreach(int col in columns)
+            foreach (int col in columns)
             {
                 if (col < 0)
                     jArray.Add(new JArray(new JValue(-col), new JValue("desc")));
@@ -67,7 +60,8 @@ namespace DataTables.AspNetCore.Mvc
             return jArray;
         }
 
-        #region Hide object method 
+        #region Hide object method
+
         /// <summary>
         /// Determines whether the specified object is equal to the current object
         /// </summary>
@@ -89,6 +83,7 @@ namespace DataTables.AspNetCore.Mvc
         /// <returns></returns>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString() { return base.ToString(); }
-        #endregion
+
+        #endregion Hide object method
     }
 }

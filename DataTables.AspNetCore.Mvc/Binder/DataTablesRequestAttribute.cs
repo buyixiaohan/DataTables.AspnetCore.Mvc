@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DataTables.AspNetCore.Mvc.Binder
 {
@@ -15,7 +12,6 @@ namespace DataTables.AspNetCore.Mvc.Binder
         /// </summary>
         public DataTablesRequestAttribute() : base(typeof(DataTablesRequestModelBinder))
         {
-
         }
     }
 }

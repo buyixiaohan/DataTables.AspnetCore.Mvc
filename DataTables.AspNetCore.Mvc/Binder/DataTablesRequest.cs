@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace DataTables.AspNetCore.Mvc.Binder
 {
@@ -9,6 +7,25 @@ namespace DataTables.AspNetCore.Mvc.Binder
     /// </summary>
     public class DataTablesRequest
     {
+        /// <summary>
+        /// Initialize a new instance of <see cref="DataTablesRequest"/>
+        /// </summary>
+        /// <param name="draw"></param>
+        /// <param name="start"></param>
+        /// <param name="length"></param>
+        /// <param name="search"></param>
+        /// <param name="orders"></param>
+        /// <param name="columns"></param>
+        public DataTablesRequest(int draw, int start, int length, Search search, IEnumerable<Order> orders, IEnumerable<DataTableColumn> columns)
+        {
+            this.Draw = draw;
+            this.Start = start;
+            this.Length = length;
+            this.Search = search;
+            this.Orders = orders;
+            this.Columns = columns;
+        }
+
         /// <summary>
         /// Draw counter. This is used by DataTables to ensure that the Ajax returns from server-side processing requests are drawn in sequence by DataTables (Ajax requests are asynchronous and thus can return out of sequence). This is used as part of the draw return parameter (see below).
         /// </summary>
@@ -38,24 +55,5 @@ namespace DataTables.AspNetCore.Mvc.Binder
         /// Column's data source
         /// </summary>
         public IEnumerable<DataTableColumn> Columns { get; }
-
-        /// <summary>
-        /// Initialize a new instance of <see cref="DataTablesRequest"/>
-        /// </summary>
-        /// <param name="draw"></param>
-        /// <param name="start"></param>
-        /// <param name="length"></param>
-        /// <param name="search"></param>
-        /// <param name="orders"></param>
-        /// <param name="columns"></param>
-        public DataTablesRequest(int draw, int start, int length, Search search, IEnumerable<Order> orders, IEnumerable<DataTableColumn> columns)
-        {
-            this.Draw = draw;
-            this.Start = start;
-            this.Length = length;
-            this.Search = search;
-            this.Orders = orders;
-            this.Columns = columns;
-        }
     }
 }

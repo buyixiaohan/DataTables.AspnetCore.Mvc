@@ -1,8 +1,5 @@
-﻿using System.IO;
-using System.Text.Encodings.Web;
-using Microsoft.AspNetCore.Html;
+﻿using Newtonsoft.Json.Linq;
 using System.ComponentModel;
-using Newtonsoft.Json.Linq;
 
 namespace DataTables.AspNetCore.Mvc
 {
@@ -11,7 +8,7 @@ namespace DataTables.AspNetCore.Mvc
     /// </summary>
     public class AjaxBuilder : IJToken
     {
-        AjaxOptions ajaxObject;
+        private AjaxOptions ajaxObject;
 
         /// <summary>
         /// Initialize a new instance of <see cref="AjaxBuilder"/>
@@ -55,6 +52,17 @@ namespace DataTables.AspNetCore.Mvc
         }
 
         /// <summary>
+        /// Add or modify data submitted to the server upon an Ajax request.
+        /// </summary>
+        /// <param name="postData"></param>
+        /// <returns></returns>
+        public AjaxBuilder PostData(string postData)
+        {
+            this.ajaxObject.PostData = $"function(data, settings){{return {postData}(data, settings);}}";
+            return this;
+        }
+
+        /// <summary>
         /// Gets the <see cref="JToken"/> of current instance
         /// </summary>
         /// <returns></returns>
@@ -64,7 +72,11 @@ namespace DataTables.AspNetCore.Mvc
             JObject jObject = new JObject();
             jObject.Add("url", new JValue(this.ajaxObject.Url));
             if (!string.IsNullOrEmpty(this.ajaxObject.Method)) jObject.Add("method", new JValue(this.ajaxObject.Method));
-            if (this.ajaxObject.DataSrc != null) jObject.Add("dataSrc",new JValue(this.ajaxObject.DataSrc));
+            if (this.ajaxObject.DataSrc != null) jObject.Add("dataSrc", new JValue(this.ajaxObject.DataSrc));
+            if (!string.IsNullOrEmpty(this.ajaxObject.PostData))
+            {
+                jObject.Add("data", new JRaw(this.ajaxObject.PostData));
+            }
 
             return jObject;
         }

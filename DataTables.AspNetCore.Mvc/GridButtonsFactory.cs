@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Html;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
-using System.Text.Encodings.Web;
 
 namespace DataTables.AspNetCore.Mvc
 {
@@ -13,8 +10,8 @@ namespace DataTables.AspNetCore.Mvc
     /// <typeparam name="T"></typeparam>
     public class GridButtonsFactory<T> : IJToken where T : class
     {
-        IList<GridButtonBuilder> buttons;
-        string name;
+        private IList<GridButtonBuilder> buttons;
+        private string name;
 
         /// <summary>
         /// Initialize a new instance of <see cref="GridButtonsFactory{T}"/>

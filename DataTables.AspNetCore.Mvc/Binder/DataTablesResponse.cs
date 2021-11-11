@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataTables.AspNetCore.Mvc.Binder
 {
@@ -15,8 +11,8 @@ namespace DataTables.AspNetCore.Mvc.Binder
     public class DataTablesResponse<T>
     {
         /// <summary>
-        /// The draw counter that this object is a response to - from the draw parameter sent as part of the data request. 
-        /// Note that it is strongly recommended for security reasons that you cast this parameter to an integer, 
+        /// The draw counter that this object is a response to - from the draw parameter sent as part of the data request.
+        /// Note that it is strongly recommended for security reasons that you cast this parameter to an integer,
         /// rather than simply echoing back to the client what it sent in the draw parameter, in order to prevent Cross Site Scripting (XSS) attacks.
         /// </summary>
         [JsonProperty(PropertyName = "draw")]

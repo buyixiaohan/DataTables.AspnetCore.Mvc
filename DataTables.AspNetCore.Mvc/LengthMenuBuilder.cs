@@ -1,8 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
-using Newtonsoft.Json.Linq;
 
 namespace DataTables.AspNetCore.Mvc
 {
@@ -11,7 +10,7 @@ namespace DataTables.AspNetCore.Mvc
     /// </summary>
     public class LengthMenuBuilder : IJToken
     {
-        internal ICollection<Tuple<int,string>> options;
+        internal ICollection<Tuple<int, string>> options;
 
         /// <summary>
         /// Initialize a new instance of <see cref="LengthMenuBuilder"/>
@@ -39,7 +38,7 @@ namespace DataTables.AspNetCore.Mvc
         /// <returns></returns>
         public LengthMenuBuilder Add(int[] values)
         {
-            foreach(var value in values)
+            foreach (var value in values)
                 this.options.Add(Tuple.Create(value, value.ToString()));
             return this;
         }

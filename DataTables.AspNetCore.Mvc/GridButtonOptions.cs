@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DataTables.AspNetCore.Mvc
+﻿namespace DataTables.AspNetCore.Mvc
 {
     /// <summary>
     /// Represents a global grid button
     /// </summary>
-    class GridButtonOptions
+    internal class GridButtonOptions
     {
         /// <summary>
         /// Define which button type the button should be based on

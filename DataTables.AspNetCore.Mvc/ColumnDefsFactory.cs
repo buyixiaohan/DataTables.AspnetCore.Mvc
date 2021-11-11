@@ -1,10 +1,6 @@
-﻿using System.IO;
-using System.Text.Encodings.Web;
-using Microsoft.AspNetCore.Html;
-using System.Collections;
+﻿using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.ComponentModel;
-using Newtonsoft.Json.Linq;
 
 namespace DataTables.AspNetCore.Mvc
 {
@@ -13,7 +9,7 @@ namespace DataTables.AspNetCore.Mvc
     /// </summary>
     public class ColumnDefsFactory : IJToken
     {
-        IList<ColumnDefsTargets> targets;
+        private IList<ColumnDefsTargets> targets;
 
         /// <summary>
         /// Initialize a new instance of <see cref="ColumnDefsFactory"/>
@@ -55,9 +51,8 @@ namespace DataTables.AspNetCore.Mvc
         public GridColumnsBuilder Targets(int[] columnsIndex)
         {
             GridColumnsBuilder column = new GridColumnsBuilder();
-            targets.Add(new ColumnDefsTargets($"[{string.Join(",",columnsIndex)}]", column));
+            targets.Add(new ColumnDefsTargets($"[{string.Join(",", columnsIndex)}]", column));
             return column;
-
         }
 
         /// <summary>
@@ -79,7 +74,7 @@ namespace DataTables.AspNetCore.Mvc
         public JToken ToJToken()
         {
             JArray jArray = new JArray();
-            for(int i = 0; i < targets.Count; i++) 
+            for (int i = 0; i < targets.Count; i++)
             {
                 jArray.Add(targets[i].ToJToken());
             }

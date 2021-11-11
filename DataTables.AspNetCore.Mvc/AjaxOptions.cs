@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DataTables.AspNetCore.Mvc
+﻿namespace DataTables.AspNetCore.Mvc
 {
     /// <summary>
     /// Represents an ajax object
     /// </summary>
-    class AjaxOptions
+    internal class AjaxOptions
     {
         /// <summary>
         /// Gets or sets ajax url
@@ -25,5 +19,10 @@ namespace DataTables.AspNetCore.Mvc
         /// Data property or manipulation method for table data.
         /// </summary>
         public string DataSrc { get; set; }
+
+        /// <summary>
+        /// Add or modify data submitted to the server upon an Ajax request.
+        /// </summary>
+        public string PostData { get; set; }
     }
 }

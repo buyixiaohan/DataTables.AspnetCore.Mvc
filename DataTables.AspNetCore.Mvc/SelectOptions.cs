@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DataTables.AspNetCore.Mvc
+﻿namespace DataTables.AspNetCore.Mvc
 {
     /// <summary>
     /// Represents the options for select extension
     /// </summary>
     public class SelectOptions
     {
-
         /// <summary>
         /// Indicate if the selected items will be removed when clicking outside of the table.
         /// </summary>
@@ -23,17 +16,17 @@ namespace DataTables.AspNetCore.Mvc
         public string ClassName { get; set; }
 
         /// <summary>
-        /// Enable / disable the display for item selection information in the table summary. 
+        /// Enable / disable the display for item selection information in the table summary.
         /// </summary>
         public bool Info { get; set; } = true;
 
         /// <summary>
-        /// Set which table items to select (rows, columns or cells). 
+        /// Set which table items to select (rows, columns or cells).
         /// </summary>
         public SelectItemsType Items { get; set; } = SelectItemsType.Row;
 
         /// <summary>
-        /// Set the element selector used for mouse event capture to select items. 
+        /// Set the element selector used for mouse event capture to select items.
         /// </summary>
         public string Selector { get; set; }
 

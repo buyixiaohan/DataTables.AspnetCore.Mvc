@@ -1,13 +1,25 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Linq.Expressions;
-using Newtonsoft.Json.Linq;
 
 namespace DataTables.AspNetCore.Mvc
 {
+    public static class StringExtensions
+    {
+        public static string ToCamelCase(this string str)
+        {
+            if (!string.IsNullOrEmpty(str) && str.Length > 1)
+            {
+                return char.ToLowerInvariant(str[0]) + str.Substring(1);
+            }
+            return str;
+        }
+    }
+
     /// <summary>
     /// Represents a factory of <see cref="GridColumnsBuilder"/>
     /// </summary>
@@ -87,18 +99,6 @@ namespace DataTables.AspNetCore.Mvc
                 jArray.Add(Columns[i].ToJToken());
             }
             return jArray;
-        }
-    }
-
-    public static class StringExtensions
-    {
-        public static string ToCamelCase(this string str)
-        {
-            if (!string.IsNullOrEmpty(str) && str.Length > 1)
-            {
-                return char.ToLowerInvariant(str[0]) + str.Substring(1);
-            }
-            return str;
         }
     }
 }

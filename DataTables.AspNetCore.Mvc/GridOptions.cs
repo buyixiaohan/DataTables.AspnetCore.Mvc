@@ -1,6 +1,6 @@
 ﻿namespace DataTables.AspNetCore.Mvc
 {
-    class GridOptions<T> where T : class
+    internal class GridOptions<T> where T : class
     {
         /// <summary>
         /// Enable or disable table pagination
@@ -33,7 +33,7 @@
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets the grid css class 
+        /// Gets the grid css class
         /// </summary>
         public string ClassName { get; set; }
 

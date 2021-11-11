@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DataTables.AspNetCore.Mvc
+﻿namespace DataTables.AspNetCore.Mvc
 {
     /// <summary>
     /// Represents options for render
     /// </summary>
-    class RenderOptions
+    internal class RenderOptions
     {
         /// <summary>
         /// Initialize a new instance of <see cref="RenderOptions"/>
@@ -19,7 +15,7 @@ namespace DataTables.AspNetCore.Mvc
         }
 
         /// <summary>
-        /// Gets or sets the render type 
+        /// Gets or sets the render type
         /// </summary>
         public RenderType RenderType { get; }
 

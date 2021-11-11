@@ -1,12 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
 
 namespace DataTables.AspNetCore.Mvc
 {
@@ -15,7 +9,7 @@ namespace DataTables.AspNetCore.Mvc
     /// </summary>
     public class GridButtonBuilder : IJToken
     {
-        GridButtonOptions gridButton;
+        private GridButtonOptions gridButton;
 
         /// <summary>
         /// Initialize a new instance of <see cref="GridButtonBuilder"/>
@@ -26,7 +20,7 @@ namespace DataTables.AspNetCore.Mvc
         }
 
         /// <summary>
-        /// Define which button type the button should be based on. 
+        /// Define which button type the button should be based on.
         /// </summary>
         /// <param name="extend"></param>
         /// <returns></returns>
@@ -71,6 +65,5 @@ namespace DataTables.AspNetCore.Mvc
             if (!string.IsNullOrEmpty(this.gridButton.Action)) jObject.Add("action", new JRaw($"function(e,dt,node,config){{{this.gridButton.Action}(e,dt,node,config);}}"));
             return jObject;
         }
-
     }
 }

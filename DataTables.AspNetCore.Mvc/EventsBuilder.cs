@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Html;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 using System.IO;
 using System.Text.Encodings.Web;
-using System.ComponentModel;
 
 namespace DataTables.AspNetCore.Mvc
 {
@@ -15,7 +11,7 @@ namespace DataTables.AspNetCore.Mvc
     /// </summary>
     public class EventsBuilder : IHtmlContent
     {
-        Dictionary<string, IList<string>> events;
+        private Dictionary<string, IList<string>> events;
 
         /// <summary>
         /// Initialize a new instance of <see cref="EventsBuilder"/>
@@ -23,22 +19,6 @@ namespace DataTables.AspNetCore.Mvc
         public EventsBuilder()
         {
             this.events = new Dictionary<string, IList<string>>();
-        }
-
-        /// <summary>
-        /// Adds or updates the event in events list
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="parameters"></param>
-        /// <param name="fn"></param>
-        private void Add(string key, string parameters, string fn)
-        {
-            if (!this.events.ContainsKey(key))
-            {
-                this.events.Add(key, new List<string>());
-                this.events[key].Add(parameters);
-            }
-            this.events[key].Add(fn);
         }
 
         /// <summary>
@@ -80,7 +60,7 @@ namespace DataTables.AspNetCore.Mvc
             //    }
             //} );
             var ienum = events.GetEnumerator();
-            while(ienum.MoveNext())
+            while (ienum.MoveNext())
             {
                 IList<string> functions = ienum.Current.Value;
                 writer.Write($"dt.on('{ienum.Current.Key}',function{functions[0]}{{");
@@ -88,6 +68,22 @@ namespace DataTables.AspNetCore.Mvc
                     writer.Write($"{functions[i]}{functions[0]};");
                 writer.Write("});");
             }
+        }
+
+        /// <summary>
+        /// Adds or updates the event in events list
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="parameters"></param>
+        /// <param name="fn"></param>
+        private void Add(string key, string parameters, string fn)
+        {
+            if (!this.events.ContainsKey(key))
+            {
+                this.events.Add(key, new List<string>());
+                this.events[key].Add(parameters);
+            }
+            this.events[key].Add(fn);
         }
     }
 }
