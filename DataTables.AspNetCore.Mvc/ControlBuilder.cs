@@ -31,5 +31,10 @@ namespace DataTables.AspNetCore.Mvc
         {
             return new GridBuilder<T>();
         }
+
+        public InitGridBuider<T> InitGrid<T>() where T : class
+        {
+            return new InitGridBuider<T>();
+        }
     }
 }

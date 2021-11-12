@@ -32,47 +32,47 @@ namespace DataTables.AspNetCore.Mvc
         /// <summary>
         /// Gets or sets the <see cref="OrderBuilder"/>
         /// </summary>
-        private OrderBuilder OrderBuilder { get; set; }
+        protected OrderBuilder OrderBuilder { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="ColumnDefsFactory"/>
         /// </summary>
-        private ColumnDefsFactory ColumnDefsFactory { get; set; }
+        protected ColumnDefsFactory ColumnDefsFactory { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="GridDataSourceBuilder"/>
         /// </summary>
-        private GridDataSourceBuilder GridDataSourceBuilder { get; set; }
+        protected GridDataSourceBuilder GridDataSourceBuilder { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="ColumnsFactory"/>
         /// </summary>
-        private ColumnsFactory<T> ColumnsFactory { get; set; }
+        protected ColumnsFactory<T> ColumnsFactory { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="GridButtonsFactory"/>
         /// </summary>
-        private GridButtonsFactory<T> GridButtonsFactory { get; set; }
+        protected GridButtonsFactory<T> GridButtonsFactory { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="SelectBuilder"/>
         /// </summary>
-        private SelectBuilder SelectBuilder { get; set; }
+        protected SelectBuilder SelectBuilder { get; set; }
 
         /// <summary>
         /// Gets or sets the events builder
         /// </summary>
-        private EventsBuilder EventsBuilder { get; set; }
+        protected EventsBuilder EventsBuilder { get; set; }
 
         /// <summary>
         /// Gets or sets the language builder
         /// </summary>
-        private LanguageBuilder LanguageBuilder { get; set; }
+        protected LanguageBuilder LanguageBuilder { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="LengthMenuBuilder"/>
         /// </summary>
-        private LengthMenuBuilder LengthMenuBuilder { get; set; }
+        protected LengthMenuBuilder LengthMenuBuilder { get; set; }
 
         #endregion Properties
 
@@ -409,7 +409,7 @@ namespace DataTables.AspNetCore.Mvc
         /// <param name="writer">The <see cref="TextWriter"/> to which the content is written.</param>
         /// <param name="encoder">The System.Text.Encodings.Web.HtmlEncoder which encodes the content to be written.</param>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public void WriteTo(TextWriter writer, HtmlEncoder encoder)
+        public virtual void WriteTo(TextWriter writer, HtmlEncoder encoder)
         {
             if (string.IsNullOrEmpty(this.Grid.Name)) throw new ArgumentException("Name property required on grid.");
             bool withClick = this.ColumnsFactory != null && this.ColumnsFactory.Columns.Any(c => !string.IsNullOrEmpty(c.Column.Click));
@@ -465,6 +465,68 @@ namespace DataTables.AspNetCore.Mvc
             {
                 writer.Write("});</script>");
             }
+        }
+    }
+
+
+
+    public class InitGridBuider<T> : GridBuilder<T> where T : class
+    {
+
+        public override void WriteTo(TextWriter writer, HtmlEncoder encoder)
+        {
+            if (string.IsNullOrEmpty(this.Grid.Name)) throw new ArgumentException("Name property required on grid.");
+            bool withClick = base.ColumnsFactory != null && base.ColumnsFactory.Columns.Any(c => !string.IsNullOrEmpty(c.Column.Click));
+
+            // Check if element Grid.Name exists
+            //< script type = "text/javascript" >
+            //    if ($("#example").length == 0) {
+            //        document.write('<table id="example" class="display" cellspacing="0" width="100%"></table>')
+            //      }
+            //</ script >
+            //writer.Write($"<script type=\"text/javascript\">document.addEventListener(\"DOMContentLoaded\", function(event) {{ if ($(\"#{this.Grid.Name}\").length==0){{document.write('<table id=\"{this.Grid.Name}\" class=\"display{(!string.IsNullOrWhiteSpace(this.Grid.ClassName) ? $" {this.Grid.ClassName}" : "")}\" cellspacing=\"0\" width=\"100%\"></table>')}}}});</script>");
+
+            // Datables.Net
+            writer.Write("function initgrid() {");
+
+            writer.Write($"var g=$('#{this.Grid.Name}');var dt=g.DataTable(");
+
+            JObject jObject = new JObject();
+            if (!string.IsNullOrEmpty(this.Grid.RowId)) jObject.Add("rowId", new JValue(this.Grid.RowId));
+            if (!string.IsNullOrEmpty(this.Grid.Dom)) jObject.Add("dom", new JValue(this.Grid.Dom));
+            if (!this.Grid.AutoWidth) jObject.Add("autoWidth", new JValue(false));
+            if (!this.Grid.Searching) jObject.Add("searching", new JValue(false));
+            if (this.Grid.StateSave) jObject.Add("stateSave", new JValue(true));
+            if (!this.Grid.Paging) jObject.Add("paging", new JValue(false));
+            if (this.Grid.PagingType != DataTables.AspNetCore.Mvc.PagingType.Simple_numbers) jObject.Add($"pagingType", new JValue(this.Grid.PagingType.ToString().ToLower()));
+            if (this.LengthMenuBuilder != null) jObject.Add("lengthMenu", this.LengthMenuBuilder.ToJToken());
+            if (!this.Grid.Ordering) jObject.Add("ordering", new JValue(false));
+            if (!this.Grid.Info) jObject.Add("info", new JValue(false));
+            if (!this.Grid.OrderMulti) jObject.Add("orderMulti", new JValue(false));
+            if (this.Grid.ScrollCollapse) jObject.Add("scrollCollapse", new JValue(true));
+            if (this.Grid.ScrollX) jObject.Add("scrollX", new JValue(true));
+            if (!string.IsNullOrEmpty(this.Grid.ScrollY)) jObject.Add($"scrollY", new JValue(this.Grid.ScrollY));
+            if (this.Grid.Processing) jObject.Add("processing", new JValue(true));
+            if (this.Grid.ServerSide) jObject.Add("serverSide", new JValue(true));
+            if (this.Grid.DeferRender) jObject.Add("deferRender", new JValue(true));
+            if (this.GridDataSourceBuilder != null) jObject.Add("ajax", this.GridDataSourceBuilder.ToJToken());
+            if (this.SelectBuilder != null) jObject.Add("select", this.SelectBuilder.ToJToken());
+            if (this.OrderBuilder != null) jObject.Add("order", this.OrderBuilder.ToJToken());
+            if (this.LanguageBuilder != null) jObject.Add("language", this.LanguageBuilder.ToJToken());
+            if (this.GridButtonsFactory != null) jObject.Add("buttons", this.GridButtonsFactory.ToJToken());
+            if (this.ColumnDefsFactory != null) jObject.Add("columnDefs", this.ColumnDefsFactory.ToJToken());
+            if (this.ColumnsFactory != null) jObject.Add("columns", this.ColumnsFactory.ToJToken());
+            writer.Write(jObject.ToString(Newtonsoft.Json.Formatting.None));
+            writer.Write(");");
+
+            if (this.EventsBuilder != null) this.EventsBuilder.WriteTo(writer, encoder);
+            if (withClick)
+            {
+                writer.Write("var fn=[" + string.Join(",", this.ColumnsFactory.Columns.Select(e => e.Column.Click)) + "];");
+                writer.Write("g.on('click','button',function(){var row=dt.row($(this).parents('tr'));var i=dt.column($(this).parents('td')).index();if (fn.length>i){fn[i]({data:$(this).data(),rowid:row.id(),row:row.data()});}});");
+            }
+            writer.WriteLine("};");
+
         }
     }
 }
