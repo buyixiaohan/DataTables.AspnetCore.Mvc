@@ -21,6 +21,37 @@ namespace DataTables.AspNetCore.Mvc
         /// </summary>
         public static PropertyInfo GetPropertyInfo(LambdaExpression propertyLambda)
         {
+
+            var currentExpression = propertyLambda.Body;
+
+
+            switch (currentExpression.NodeType)
+            {
+                case ExpressionType.Parameter:
+                    var a = ((ParameterExpression)currentExpression).Name;
+                    break;
+                case ExpressionType.MemberAccess:
+                    var b = ((MemberExpression)currentExpression).Member.Name;
+                    break;
+                case ExpressionType.Call:
+                    var c = ((MethodCallExpression)currentExpression).Method.Name;
+                    break;
+                case ExpressionType.Convert:
+                case ExpressionType.ConvertChecked:
+                    currentExpression = ((UnaryExpression)currentExpression).Operand;
+                    break;
+                case ExpressionType.Invoke:
+                    currentExpression = ((InvocationExpression)currentExpression).Expression;
+                    break;
+                case ExpressionType.ArrayLength:
+                    var sss = "Length";
+                    break;
+                default:
+                    throw new Exception("not a proper member selector");
+            }
+
+
+
             // https://stackoverflow.com/questions/671968/retrieving-property-name-from-lambda-expression
             MemberExpression member = propertyLambda.Body as MemberExpression;
             if (member == null)
@@ -40,8 +71,7 @@ namespace DataTables.AspNetCore.Mvc
                     propertyLambda.ToString()));
 
             var type = propertyLambda.Parameters[0].Type;
-            if (type != propInfo.ReflectedType &&
-                !type.IsSubclassOf(propInfo.ReflectedType))
+            if (type != propInfo.ReflectedType &&!type.IsSubclassOf(propInfo.ReflectedType))
                 throw new ArgumentException(String.Format(
                     "Expression '{0}' refers to a property that is not from type {1}.",
                     propertyLambda.ToString(),
