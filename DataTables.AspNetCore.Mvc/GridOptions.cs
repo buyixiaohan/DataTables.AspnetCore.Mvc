@@ -91,5 +91,7 @@
         /// Feature control search (filtering) abilities.
         /// </summary>
         public bool Searching { get; set; } = true;
+
+        public string InitComplete { get; set; }
     }
 }

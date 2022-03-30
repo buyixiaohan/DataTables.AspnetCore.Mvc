@@ -404,6 +404,17 @@ namespace DataTables.AspNetCore.Mvc
         }
 
         /// <summary>
+        /// Languages options
+        /// </summary>
+        /// <param name="languages"></param>
+        /// <returns></returns>
+        public GridBuilder<T> InitComplete(string initCompleteCallback)
+        {
+            this.Grid.InitComplete = initCompleteCallback;
+            return this;
+        }
+
+        /// <summary>
         /// Writes the content by encoding it with the specified encoder to the specified writer
         /// </summary>
         /// <param name="writer">The <see cref="TextWriter"/> to which the content is written.</param>
@@ -431,6 +442,7 @@ namespace DataTables.AspNetCore.Mvc
             if (!string.IsNullOrEmpty(this.Grid.Dom)) jObject.Add("dom", new JValue(this.Grid.Dom));
             if (!this.Grid.AutoWidth) jObject.Add("autoWidth", new JValue(false));
             if (!this.Grid.Searching) jObject.Add("searching", new JValue(false));
+            
             if (this.Grid.StateSave) jObject.Add("stateSave", new JValue(true));
             if (!this.Grid.Paging) jObject.Add("paging", new JValue(false));
             if (this.Grid.PagingType != DataTables.AspNetCore.Mvc.PagingType.Simple_numbers) jObject.Add($"pagingType", new JValue(this.Grid.PagingType.ToString().ToLower()));
@@ -451,6 +463,7 @@ namespace DataTables.AspNetCore.Mvc
             if (this.GridButtonsFactory != null) jObject.Add("buttons", this.GridButtonsFactory.ToJToken());
             if (this.ColumnDefsFactory != null) jObject.Add("columnDefs", this.ColumnDefsFactory.ToJToken());
             if (this.ColumnsFactory != null) jObject.Add("columns", this.ColumnsFactory.ToJToken());
+            if (!string.IsNullOrEmpty(this.Grid.InitComplete)) jObject.Add("initComplete", new JValue(this.Grid.InitComplete));
             writer.Write(jObject.ToString(Newtonsoft.Json.Formatting.None));
             writer.Write(");");
 
@@ -516,6 +529,7 @@ namespace DataTables.AspNetCore.Mvc
             if (this.GridButtonsFactory != null) jObject.Add("buttons", this.GridButtonsFactory.ToJToken());
             if (this.ColumnDefsFactory != null) jObject.Add("columnDefs", this.ColumnDefsFactory.ToJToken());
             if (this.ColumnsFactory != null) jObject.Add("columns", this.ColumnsFactory.ToJToken());
+            if (!string.IsNullOrEmpty(this.Grid.InitComplete)) jObject.Add("initComplete", new JValue(this.Grid.InitComplete));
             writer.Write(jObject.ToString(Newtonsoft.Json.Formatting.None));
             writer.Write(");");
 
