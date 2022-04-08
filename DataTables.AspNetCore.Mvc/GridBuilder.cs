@@ -410,6 +410,8 @@ namespace DataTables.AspNetCore.Mvc
         /// <returns></returns>
         public GridBuilder<T> InitComplete(string initCompleteCallback)
         {
+            //this.Column.Render = new RenderOptions(RenderType.Function, $"function(d,t,r,m){{return {function()}(d,t,r,m);}}");
+            
             this.Grid.InitComplete = initCompleteCallback;
             return this;
         }
@@ -463,7 +465,7 @@ namespace DataTables.AspNetCore.Mvc
             if (this.GridButtonsFactory != null) jObject.Add("buttons", this.GridButtonsFactory.ToJToken());
             if (this.ColumnDefsFactory != null) jObject.Add("columnDefs", this.ColumnDefsFactory.ToJToken());
             if (this.ColumnsFactory != null) jObject.Add("columns", this.ColumnsFactory.ToJToken());
-            if (!string.IsNullOrEmpty(this.Grid.InitComplete)) jObject.Add("initComplete", new JValue(this.Grid.InitComplete));
+            if (!string.IsNullOrEmpty(this.Grid.InitComplete)) jObject.Add("initComplete", new JRaw(this.Grid.InitComplete));
             writer.Write(jObject.ToString(Newtonsoft.Json.Formatting.None));
             writer.Write(");");
 
@@ -529,7 +531,7 @@ namespace DataTables.AspNetCore.Mvc
             if (this.GridButtonsFactory != null) jObject.Add("buttons", this.GridButtonsFactory.ToJToken());
             if (this.ColumnDefsFactory != null) jObject.Add("columnDefs", this.ColumnDefsFactory.ToJToken());
             if (this.ColumnsFactory != null) jObject.Add("columns", this.ColumnsFactory.ToJToken());
-            if (!string.IsNullOrEmpty(this.Grid.InitComplete)) jObject.Add("initComplete", new JValue(this.Grid.InitComplete));
+            if (!string.IsNullOrEmpty(this.Grid.InitComplete)) jObject.Add("initComplete", new JRaw(this.Grid.InitComplete));
             writer.Write(jObject.ToString(Newtonsoft.Json.Formatting.None));
             writer.Write(");");
 
