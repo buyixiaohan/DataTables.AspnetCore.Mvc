@@ -7,6 +7,8 @@
         /// </summary>
         public bool Paging { get; set; } = true;
 
+        public int PageLength { get; set; } = 20;
+
         /// <summary>
         /// Feature control ordering (sorting) abilities in DataTables.
         /// </summary>

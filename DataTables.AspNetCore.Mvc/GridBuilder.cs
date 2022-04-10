@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Html;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text.Encodings.Web;
+using Microsoft.AspNetCore.Html;
+using Newtonsoft.Json.Linq;
 
 namespace DataTables.AspNetCore.Mvc
 {
@@ -174,6 +174,12 @@ namespace DataTables.AspNetCore.Mvc
         public GridBuilder<T> Paging(bool paging)
         {
             this.Grid.Paging = paging;
+            return this;
+        }
+
+        public GridBuilder<T> PageLength(int pageLength)
+        {
+            this.Grid.PageLength = pageLength;
             return this;
         }
 
@@ -411,7 +417,7 @@ namespace DataTables.AspNetCore.Mvc
         public GridBuilder<T> InitComplete(string initCompleteCallback)
         {
             //this.Column.Render = new RenderOptions(RenderType.Function, $"function(d,t,r,m){{return {function()}(d,t,r,m);}}");
-            
+
             this.Grid.InitComplete = initCompleteCallback;
             return this;
         }
@@ -420,7 +426,9 @@ namespace DataTables.AspNetCore.Mvc
         /// Writes the content by encoding it with the specified encoder to the specified writer
         /// </summary>
         /// <param name="writer">The <see cref="TextWriter"/> to which the content is written.</param>
-        /// <param name="encoder">The System.Text.Encodings.Web.HtmlEncoder which encodes the content to be written.</param>
+        /// <param name="encoder">
+        /// The System.Text.Encodings.Web.HtmlEncoder which encodes the content to be written.
+        /// </param>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual void WriteTo(TextWriter writer, HtmlEncoder encoder)
         {
@@ -444,9 +452,9 @@ namespace DataTables.AspNetCore.Mvc
             if (!string.IsNullOrEmpty(this.Grid.Dom)) jObject.Add("dom", new JValue(this.Grid.Dom));
             if (!this.Grid.AutoWidth) jObject.Add("autoWidth", new JValue(false));
             if (!this.Grid.Searching) jObject.Add("searching", new JValue(false));
-            
             if (this.Grid.StateSave) jObject.Add("stateSave", new JValue(true));
             if (!this.Grid.Paging) jObject.Add("paging", new JValue(false));
+            if (this.Grid.PageLength != 20) jObject.Add("pageLength", new JValue(this.Grid.PageLength));
             if (this.Grid.PagingType != DataTables.AspNetCore.Mvc.PagingType.Simple_numbers) jObject.Add($"pagingType", new JValue(this.Grid.PagingType.ToString().ToLower()));
             if (this.LengthMenuBuilder != null) jObject.Add("lengthMenu", this.LengthMenuBuilder.ToJToken());
             if (!this.Grid.Ordering) jObject.Add("ordering", new JValue(false));
@@ -483,11 +491,8 @@ namespace DataTables.AspNetCore.Mvc
         }
     }
 
-
-
     public class InitGridBuider<T> : GridBuilder<T> where T : class
     {
-
         public override void WriteTo(TextWriter writer, HtmlEncoder encoder)
         {
             if (string.IsNullOrEmpty(this.Grid.Name)) throw new ArgumentException("Name property required on grid.");
@@ -513,6 +518,7 @@ namespace DataTables.AspNetCore.Mvc
             if (!this.Grid.Searching) jObject.Add("searching", new JValue(false));
             if (this.Grid.StateSave) jObject.Add("stateSave", new JValue(true));
             if (!this.Grid.Paging) jObject.Add("paging", new JValue(false));
+            if (this.Grid.PageLength != 20) jObject.Add("pageLength", new JValue(this.Grid.PageLength));
             if (this.Grid.PagingType != DataTables.AspNetCore.Mvc.PagingType.Simple_numbers) jObject.Add($"pagingType", new JValue(this.Grid.PagingType.ToString().ToLower()));
             if (this.LengthMenuBuilder != null) jObject.Add("lengthMenu", this.LengthMenuBuilder.ToJToken());
             if (!this.Grid.Ordering) jObject.Add("ordering", new JValue(false));
@@ -542,7 +548,6 @@ namespace DataTables.AspNetCore.Mvc
                 writer.Write("g.on('click','button',function(){var row=dt.row($(this).parents('tr'));var i=dt.column($(this).parents('td')).index();if (fn.length>i){fn[i]({data:$(this).data(),rowid:row.id(),row:row.data()});}});");
             }
             writer.WriteLine("};");
-
         }
     }
 }
