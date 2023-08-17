@@ -6,7 +6,8 @@
 		<Authors>Buyi.Xiaohan</Authors>
 		<Description>HtmlHelper for DataTables.net</Description>
 		<Copyright>Copyright (c) 2023</Copyright>
-		<!--<PackageIconUrl>https://raw.githubusercontent.com/LZorglub/DataTables.AspnetCore.Mvc/master/table64x64.png</PackageIconUrl>-->
+		<PackageId>DataTables.AspnetCore.Mvc.NET6</PackageId>
+		<PackageIconUrl>https://raw.githubusercontent.com/buyixiaohan/DataTables.AspnetCore.Mvc/master/table64x64.png</PackageIconUrl>
 		<PackageProjectUrl>https://github.com/buyixiaohan/DataTables.AspnetCore.Mvc</PackageProjectUrl>
 		<PackageTags>datatables net htmlhelper bootstrap</PackageTags>
 		<Version>1.4.2.1</Version>
