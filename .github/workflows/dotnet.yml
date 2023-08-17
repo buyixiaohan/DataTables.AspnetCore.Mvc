@@ -29,5 +29,5 @@ jobs:
     - name: Publish
       uses: brandedoutcast/publish-nuget@v2.5.2
       with:
-       PROJECT_FILE_PATH: DataTables.AspNetCore.Mvc/DataTables.AspNetCore.Mvc.csproj
+       PROJECT_FILE_PATH: DataTables.NetCore.Mvc/DataTables.NetCore.Mvc.csproj
        NUGET_KEY: ${{secrets.NUGET_API_KEY}}
