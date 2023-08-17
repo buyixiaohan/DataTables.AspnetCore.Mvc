@@ -4,9 +4,8 @@
 		<TargetFramework>net6.0</TargetFramework>
 	</PropertyGroup>
 
-
 	<ItemGroup>
-		<ProjectReference Include="..\DataTables.AspNetCore.Mvc\DataTables.AspNetCore.Mvc.csproj" />
+	  <ProjectReference Include="..\DataTables.NetCore.Mvc\DataTables.NetCore.Mvc.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Authors>Buyi.Xiaohan</Authors>
+		<Description>HtmlHelper for DataTables.net</Description>
+		<Copyright>Copyright (c) 2023</Copyright>
+		<PackageId>DataTables.NetCore.Mvc</PackageId>
+		
+		 
+		<PackageProjectUrl>https://github.com/buyixiaohan/DataTables.AspnetCore.Mvc</PackageProjectUrl>
+		<PackageTags>datatables net htmlhelper bootstrap</PackageTags>
+		<Version>1.4.2.1</Version>
+		<PackageReleaseNotes>Custom table css class</PackageReleaseNotes>
+		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl>https://github.com/buyixiaohan/DataTables.AspnetCore.Mvc</RepositoryUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageIcon>table64x64.png</PackageIcon>
+		
+  </PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DocumentationFile>bin\Release\DataTables.AspNetCore.Mvc.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DocumentationFile>bin\Debug\DataTables.NetCore.Mvc.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="table64x64.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
+
+</Project>
