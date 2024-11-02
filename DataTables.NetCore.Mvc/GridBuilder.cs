@@ -105,7 +105,18 @@ namespace DataTables.NetCore.Mvc
         /// <returns></returns>
         public GridBuilder<T> Dom(string dom)
         {
-            this.Grid.Dom = dom;
+            this.Grid.Dom =new RenderOptions(RenderType.String, dom);
+            return this;
+        }
+
+        /// <summary>
+        /// Define the table control elements to appear on the page and in what order.
+        /// </summary>
+        /// <param name="dom"></param>
+        /// <returns></returns>
+        public GridBuilder<T> Dom(Func<string> function )
+        {
+            this.Grid.Dom = new RenderOptions(RenderType.Function, function());
             return this;
         }
 
@@ -449,7 +460,18 @@ namespace DataTables.NetCore.Mvc
 
             JObject jObject = new JObject();
             if (!string.IsNullOrEmpty(this.Grid.RowId)) jObject.Add("rowId", new JValue(this.Grid.RowId));
-            if (!string.IsNullOrEmpty(this.Grid.Dom)) jObject.Add("dom", new JValue(this.Grid.Dom));
+            if (this.Grid.Dom != null) {
+                if (this.Grid.Dom.RenderType == RenderType.String)
+                {
+                    jObject.Add("dom", new JValue(this.Grid.Dom));
+                }
+                else if (this.Grid.Dom.RenderType == RenderType.Function)
+                {
+                    // Function
+                    jObject.Add("render", new JRaw(this.Grid.Dom.Render));
+                }
+            }
+            //if (!string.IsNullOrEmpty(this.Grid.Dom)) jObject.Add("dom", new JValue(this.Grid.Dom));
             if (!this.Grid.AutoWidth) jObject.Add("autoWidth", new JValue(false));
             if (!this.Grid.Searching) jObject.Add("searching", new JValue(false));
             if (this.Grid.StateSave) jObject.Add("stateSave", new JValue(true));
@@ -513,7 +535,19 @@ namespace DataTables.NetCore.Mvc
 
             JObject jObject = new JObject();
             if (!string.IsNullOrEmpty(this.Grid.RowId)) jObject.Add("rowId", new JValue(this.Grid.RowId));
-            if (!string.IsNullOrEmpty(this.Grid.Dom)) jObject.Add("dom", new JValue(this.Grid.Dom));
+            //if (!string.IsNullOrEmpty(this.Grid.Dom)) jObject.Add("dom", new JValue(this.Grid.Dom));
+            if (this.Grid.Dom != null)
+            {
+                if (this.Grid.Dom.RenderType == RenderType.String)
+                {
+                    jObject.Add("dom", new JValue(this.Grid.Dom));
+                }
+                else if (this.Grid.Dom.RenderType == RenderType.Function)
+                {
+                    // Function
+                    jObject.Add("render", new JRaw(this.Grid.Dom.Render));
+                }
+            }
             if (!this.Grid.AutoWidth) jObject.Add("autoWidth", new JValue(false));
             if (!this.Grid.Searching) jObject.Add("searching", new JValue(false));
             if (this.Grid.StateSave) jObject.Add("stateSave", new JValue(true));

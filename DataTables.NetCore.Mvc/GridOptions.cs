@@ -42,7 +42,7 @@
         /// <summary>
         /// Define the table control elements to appear on the page and in what order.
         /// </summary>
-        public string Dom { get; internal set; }
+        public RenderOptions Dom { get; internal set; }
 
         /// <summary>
         /// State saving - restore table state on page reload.
