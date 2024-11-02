@@ -11,7 +11,7 @@
 		 
 		<PackageProjectUrl>https://github.com/buyixiaohan/DataTables.AspnetCore.Mvc</PackageProjectUrl>
 		<PackageTags>datatables net htmlhelper bootstrap</PackageTags>
-		<Version>1.4.2.1</Version>
+		<Version>1.4.2.2</Version>
 		<PackageReleaseNotes>Custom table css class</PackageReleaseNotes>
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/buyixiaohan/DataTables.AspnetCore.Mvc</RepositoryUrl>
