@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.ComponentModel;
+using System.Linq;
 
 namespace DataTables.NetCore.Mvc
 {
@@ -162,6 +163,19 @@ namespace DataTables.NetCore.Mvc
         public GridColumnsBuilder Render(string render)
         {
             this.Column.Render = new RenderOptions(RenderType.String, render);
+            return this;
+        }
+        /// <summary>
+        /// Render (process) the data for use in the table.
+        /// </summary>
+        /// <param name="function"></param>
+        /// <param name="paras"></param>
+        /// <returns></returns>
+        public GridColumnsBuilder Render(string function,params string[] paras)
+        {
+
+            var otherParams = paras.Any() ? "," + string.Join(",", paras) : "";
+            this.Column.Render = new RenderOptions(RenderType.Function, $"function(d,t,r,m){{return {function}(d,t,r,m{otherParams});}}");
             return this;
         }
 
